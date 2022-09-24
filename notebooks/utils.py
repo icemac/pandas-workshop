@@ -13,7 +13,7 @@ MIN_PYTHON_VERSION, MAX_PYTHON_VERSION = Version('3.8.0'), Version('3.10.2')
 def run_env_check():
     """Check that the packages we need are installed and the Python version is high enough."""
     # check the python version
-    print('Using Python in %s:' % sys.prefix)
+    print(f'Using Python in {sys.prefix}:')
     python_version = Version(sys.version)
     if python_version >= MIN_PYTHON_VERSION and python_version <= MAX_PYTHON_VERSION:
         print(OK, 'Python is version %s\n' % sys.version)
@@ -40,8 +40,12 @@ def run_env_check():
             if req_version:
                 version = mod.__version__
                 if Version(version) != Version(req_version):
-                    print(FAIL, '%s version %s is required, but %s installed.' % (pkg, req_version, version))
+                    print(
+                        FAIL,
+                        f'{pkg} version {req_version} is required, but {version} installed.',
+                    )
+
                     continue
-            print(OK, '%s' % pkg)
+            print(OK, f'{pkg}')
         except ImportError:
-            print(FAIL, '%s not installed.' % pkg)
+            print(FAIL, f'{pkg} not installed.')
